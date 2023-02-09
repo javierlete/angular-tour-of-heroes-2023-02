@@ -8,7 +8,7 @@ import { MessageService } from './message.service';
   providedIn: 'root'
 })
 export class HeroService {
-  private heroesUrl = 'api/heroes';
+  private heroesUrl = 'http://localhost:3000/heroes/';
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
@@ -24,7 +24,7 @@ export class HeroService {
   }
 
   getHero(id: number): Observable<Hero> {
-    return this.http.get<Hero>(this.heroesUrl + '/' + id).pipe(
+    return this.http.get<Hero>(this.heroesUrl + id).pipe(
       tap(_ => this.log(`fetched hero id=${id}`)),
       catchError(this.handleError<Hero>('getHero'))
     );
@@ -35,7 +35,7 @@ export class HeroService {
       return of([]);
     }
 
-    return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
+    return this.http.get<Hero[]>(`${this.heroesUrl}?name_like=${term}`).pipe(
       tap(_ => this.log(`search hero ${term}`)),
       catchError(this.handleError<Hero[]>('searchHeroes', []))
     );
@@ -50,7 +50,7 @@ export class HeroService {
   }
 
   updateHero(hero: Hero): Observable<Hero> {
-    return this.http.put<Hero>(this.heroesUrl, hero).pipe(
+    return this.http.put<Hero>(this.heroesUrl + hero.id, hero).pipe(
       tap(_ => this.log(`updated hero id=${hero.id}`)),
       catchError(this.handleError<Hero>('updateHero'))
     );
@@ -58,7 +58,7 @@ export class HeroService {
 
   deleteHero(id: number): Observable<any> {
 
-    return this.http.delete<any>(this.heroesUrl + '/' + id).pipe(
+    return this.http.delete<any>(this.heroesUrl + id).pipe(
       tap(_ => this.log(`deleted hero id=${id}`)),
       catchError(this.handleError<any>('deleteHero'))
     );

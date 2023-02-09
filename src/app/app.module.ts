@@ -10,8 +10,6 @@ import { HeroDetailComponent } from './componentes/hero-detail/hero-detail.compo
 import { MessagesComponent } from './componentes/messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './componentes/dashboard/dashboard.component';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './servicios/in-memory-data.service';
 import { HeroSearchComponent } from './componentes/hero-search/hero-search.component';
 
 @NgModule({
@@ -28,8 +26,6 @@ import { HeroSearchComponent } from './componentes/hero-search/hero-search.compo
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false })
   ],
   providers: [],
   bootstrap: [AppComponent]
